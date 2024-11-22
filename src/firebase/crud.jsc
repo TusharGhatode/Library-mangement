@@ -1,0 +1,41 @@
+// src/firebase/firebaseService.js
+import { db } from './firebaseConfig';
+import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "firebase/firestore";
+
+// Create (Add a new document)
+export const addBook = async (bookData) => {
+  try {
+    const docRef = await addDoc(collection(db, "books"), bookData);
+    return docRef.id;
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+};
+
+// Read (Get all documents)
+export const getBooks = async () => {
+  const booksCollection = collection(db, "books");
+  const booksSnapshot = await getDocs(booksCollection);
+  const booksList = booksSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return booksList;
+};
+
+// Update (Modify a document by ID)
+export const updateBook = async (id, updatedData) => {
+  const bookDoc = doc(db, "books", id);
+  try {
+    await updateDoc(bookDoc, updatedData);
+  } catch (e) {
+    console.error("Error updating document: ", e);
+  }
+};
+
+// Delete (Remove a document by ID)
+export const deleteBook = async (id) => {
+  const bookDoc = doc(db, "books", id);
+  try {
+    await deleteDoc(bookDoc);
+  } catch (e) {
+    console.error("Error deleting document: ", e);
+  }
+};
