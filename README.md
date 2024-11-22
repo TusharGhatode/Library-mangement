@@ -37,8 +37,8 @@ A web-based system to manage library operations with four roles: **Master**, **A
    ```  
 2. Install dependencies:  
    ```bash  
-   cd backend && npm install  
-   cd ../frontend && npm install  
+   cd Main && npm install  
+  
    ```  
  
 4. Run the backend and frontend:  
